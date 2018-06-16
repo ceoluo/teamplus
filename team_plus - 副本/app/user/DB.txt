@@ -1,0 +1,309 @@
+比赛组队，
+
+团队招人，
+
+组织各类活动，
+
+跨专业合作交流，
+
+来team+,轻松搞定......
+
+
+1.建库
+
+create database team_plus;
+
+
+2.建立users表
+
+drop table if exists users;
+
+/*==============================================================*/
+/* Table: users                                                 */
+/*==============================================================*/
+create table users
+(
+   u_id                 int not null auto_increment,
+   u_xh_id              char(13) not null,
+   u_name               char(10) not null,
+   u_nickname           char(15),
+   u_password           char(15) not null,
+   u_sex                char(1) not null,
+   u_race               char(8) not null,
+   u_birth              date not null,
+   u_adm_time           date not null,
+   u_add                varchar(50) not null,
+   u_imgs               varchar(800),
+   u_introdction        tinytext,
+   u_title              varchar(100),
+   u_faculty            char(25),
+   u_discipline         char(25),
+   u_athority           tinyint not null default 3,
+   head_img             char(20) default 'head_img.jpg',
+   primary key (u_id)
+);
+
+
+
+
+3.建立teams表
+
+drop table if exists teams;
+
+/*==============================================================*/
+/* Table: teams                                                 */
+/*==============================================================*/
+create table teams
+(
+   t_id                 int not null auto_increment,
+   t_name               varchar(30) not null,
+   t_introdction        tinytext,
+   t_imgs               varchar(1000),
+   t_file               varchar(1000),
+   primary key (t_id)
+)
+auto_increment = 2000;
+
+
+
+4.建立activities表
+
+drop table if exists activities;
+
+/*==============================================================*/
+/* Table: activities                                            */
+/*==============================================================*/
+create table activities
+(
+   a_id                 int not null auto_increment,
+   a_name               char(30) not null,
+   a_introdction        varchar(2000),
+   a_begin_time         date not null,
+   a_end_time           date not null,
+   a_level              tinyint not null,
+   a_imgs               varchar(500),
+   a_file               varchar(500),
+   primary key (a_id)
+)
+auto_increment = 1000;
+
+
+5.建立activity_user表
+
+drop table if exists activity_user;
+
+/*==============================================================*/
+/* Table: activity_user                                         */
+/*==============================================================*/
+create table activity_user
+(
+   a_id                 int not null,
+   u_id                 int not null,
+   primary key (a_id, u_id)
+);
+
+alter table activity_user add constraint FK_activity_activity_user foreign key (a_id)
+      references activities (a_id) on delete restrict on update restrict;
+
+alter table activity_user add constraint FK_user_activity_user foreign key (u_id)
+      references users (u_id) on delete restrict on update restrict;
+
+
+
+
+6.建立activity_team表
+
+
+drop table if exists activity_team;
+
+/*==============================================================*/
+/* Table: activity_team                                         */
+/*==============================================================*/
+create table activity_team
+(
+   a_id                 int not null,
+   t_id                 int not null,
+   primary key (a_id, t_id)
+);
+
+alter table activity_team add constraint FK_activity_activity_team foreign key (a_id)
+      references activities (a_id) on delete restrict on update restrict;
+
+alter table activity_team add constraint FK_team_activity_team foreign key (t_id)
+      references teams (t_id) on delete restrict on update restrict;
+
+
+
+7.建立team_user表
+
+drop table if exists team_user;
+
+/*==============================================================*/
+/* Table: team_user                                             */
+/*==============================================================*/
+create table team_user
+(
+   t_id                 int not null,
+   u_id                 int not null,
+   primary key (t_id, u_id)
+);
+
+alter table team_user add constraint FK_team_team_user foreign key (t_id)
+      references teams (t_id) on delete restrict on update restrict;
+
+alter table team_user add constraint FK_user_team_user foreign key (u_id)
+      references users (u_id) on delete restrict on update restrict;
+
+
+
+
+
+8.建立messages表
+
+drop table if exists messages;
+
+/*==============================================================*/
+/* Table: messages                                              */
+/*==============================================================*/
+create table messages
+(
+   m_id                 int not null auto_increment,
+   m_content            varchar(250) not null,
+   m_date               date not null,
+   u_id                 int,
+   primary key (m_id)
+);
+
+
+
+9.建立team_message表
+
+drop table if exists team_message;
+
+/*==============================================================*/
+/* Table: team_message                                          */
+/*==============================================================*/
+create table team_message
+(
+   t_id                 int not null,
+   m_id                 int not null,
+   primary key (t_id, m_id)
+);
+
+alter table team_message add constraint FK_message_team foreign key (m_id)
+      references messages (m_id) on delete restrict on update restrict;
+
+alter table team_message add constraint FK_team_message foreign key (t_id)
+      references teams (t_id) on delete restrict on update restrict;
+
+
+10.建立activity_message表
+
+drop table if exists activity_message;
+
+/*==============================================================*/
+/* Table: activity_message                                      */
+/*==============================================================*/
+create table activity_message
+(
+   a_id                 int not null,
+   m_id                 int not null,
+   primary key (a_id, m_id)
+);
+
+alter table activity_message add constraint FK_activity_message foreign key (a_id)
+      references activities (a_id) on delete restrict on update restrict;
+
+alter table activity_message add constraint FK_message_activity foreign key (m_id)
+      references messages (m_id) on delete restrict on update restrict;
+
+
+
+
+9.建立reply表
+
+drop table if exists reply;
+
+/*==============================================================*/
+/* Table: reply                                                 */
+/*==============================================================*/
+create table reply
+(
+   r_id                 int not null auto_increment,
+   m_id                 int not null,
+   r_content            varchar(250) not null,
+   r_date               date not null,
+   u_id                 int not null,
+   primary key (r_id)
+);
+
+alter table reply add constraint FK_message_reply foreign key (m_id)
+      references messages (m_id) on delete restrict on update restrict;
+
+
+
+10.建立管理员表
+
+drop table if exists administrator;
+
+/*==============================================================*/
+/* Table: administrator                                         */
+/*==============================================================*/
+create table administrator
+(
+   t_id                 int not null,
+   u_id                 int not null,
+   ad_level             tinyint not null default 3,
+   primary key (t_id, u_id)
+);
+
+alter table administrator add constraint FK_team_administrator foreign key (t_id)
+      references teams (t_id) on delete restrict on update restrict;
+
+alter table administrator add constraint FK_user_administrator foreign key (u_id)
+      references users (u_id) on delete restrict on update restrict;
+
+11、建立activity_message表
+
+drop table if exists activity_message;
+
+/*==============================================================*/
+/* Table: activity_message                                      */
+/*==============================================================*/
+create table activity_message
+(
+   a_id                 int not null,
+   m_id                 int not null,
+   primary key (a_id, m_id)
+);
+
+alter table activity_message add constraint FK_activity_message foreign key (a_id)
+      references activities (a_id) on delete restrict on update restrict;
+
+alter table activity_message add constraint FK_message_activity foreign key (m_id)
+      references messages (m_id) on delete restrict on update restrict;
+
+12、建立users表
+
+drop table if exists user_message;
+
+/*==============================================================*/
+/* Table: user_message                                          */
+/*==============================================================*/
+create table user_message
+(
+   u_id                 int not null,
+   m_id                 int not null,
+   primary key (u_id, m_id)
+);
+
+alter table user_message add constraint FK_messages_user foreign key (m_id)
+      references messages (m_id) on delete restrict on update restrict;
+
+alter table user_message add constraint FK_users_messages foreign key (u_id)
+      references users (u_id) on delete restrict on update restrict;
+
+
+
+
+

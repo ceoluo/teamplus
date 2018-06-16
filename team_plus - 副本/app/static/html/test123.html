@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div class="center-section-wrap height2" v-show="flag==2">
+				<div class="col-md-12 col-sm-12 col-xs-12">
+	                <div class="chat-panel panel panel-default chat-boder chat-panel-head">
+	                    <div class="panel-heading">
+	                        <i class="glyphicon glyphicon-plus"></i>
+	                        我发起的活动
+	                        <div class="btn-group pull-right">
+	                            <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+	                            	<i class="glyphicon glyphicon-chevron-down"></i>
+	                            </button>
+	                            <ul class="dropdown-menu slidedown">
+	                                <li>
+	                                   	<a href="#">
+	                                        <i class="glyphicon glyphicon-calendar"></i>今天
+	                                    </a>
+	                                </li>
+	                                <li>
+	                                    <a href="#">
+	                                        <i class="glyphicon glyphicon-calendar"></i>一周内
+	                                    </a>
+	                                </li>
+	                                <li>
+	                                    <a href="#">
+	                                        <i class="glyphicon glyphicon-calendar"></i>一个月内
+	                                    </a>
+	                                </li>
+	                                <li>
+	                                    <a href="#">
+	                                        <i class="glyphicon glyphicon-asterisk"></i>所有
+	                                    </a>
+	                                </li>
+	                                    <li class="divider"></li>
+	                                <li>
+	                                    <a href="#">
+	                                        <i class="glyphicon glyphicon-remove-sign"></i>注销
+	                                    </a>
+	                                </li>
+	                            </ul>
+	                        </div>
+	                    </div>
+
+	                    <div class="panel-body">
+	                        <ul class="chat-box">
+
+	                            <li class="left clearfix"  v-for="item in myact">
+	                                <span class="chat-img pull-left">
+	                                    <img :src=item.imga  alt="User" class="img-circle">
+	                                </span>
+	                                <div class="chat-body">
+	                                    <strong>{{item.title}}</strong>
+	                                    <small class="pull-right text-muted">
+	                                        <i class="glyphicon glyphicon-dashboard">{{item.begintime|date}}~{{item.endtime|date}}</i>
+	                                    </small>
+	                                    <p>
+	                                       {{item.content}}
+
+
+	                                    </p>
+	                                </div>
+	                            </li>
+
+	                       	</ul>
+	                    </div>
+	                </div>
+	            </div>
+			</div>
+</body>
+</html>

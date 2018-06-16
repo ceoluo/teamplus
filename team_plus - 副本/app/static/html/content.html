@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="shortcut icon" href="../images/bitbug_favicon.ico" />
+	<link rel="stylesheet" type="text/css" href="../bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="../css/iconfont2.css">
+	<link rel="stylesheet" type="text/css" href="../css/iconfont3.css">
+	<link rel="stylesheet" href="../css/content1.css">
+	<title>活动详情</title>
+</head>
+<body>
+	<!-- 等待窗口 -->
+	<div class="loading">
+		<div class="pic">
+			<i></i>
+			<i></i>
+			<i></i>
+			<i></i>
+		</div>
+	</div>
+	
+	<header>
+		<div class="logo">
+			<img src="../images/logo2.png" alt="">
+		</div>
+		<div class="search">
+			<form class="form-inline my-2 my-lg-0">
+				<a href="index.html">首页</a>
+				<input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+				<button class="btn btn-success my-2 my-sm-0" type="submit">Search</button>
+			</form>
+			<div class="fudong">你好,{{username}}</div>
+		</div>
+	</header>
+	
+	<div class="content">
+		<div class="work-details-left">
+			<div class="work-details-content">
+				<div class="left-details-head">
+					<div class="details-contitle-box">
+						<h2>{{title}}</h2>
+						<p class="title-time">已报名人数：<span>{{joined_members}}</span>&nbsp;&nbsp;&nbsp;&nbsp;最多人数：<span>{{members}}</span></p>
+						<div class="work-head-box">
+							<div class="head-left">
+								<span class="head-index">
+									<span>{{t_level|lev}}</span>
+									<i>/</i>
+									<span>创意</span>
+								</span>
+							</div>
+							<div class="head-right">
+								<span class="head-data-show">
+									<i class="iconfont icon-yj"></i>2169&nbsp;&nbsp;
+									<i class="iconfont icon-liuyan"></i>11
+								</span>
+							</div>
+						</div>
+					</div>
+					<div class="work-decoration-title">
+						<p>{{introduction}}</p>
+					</div>
+					<div class="left-img-con">
+						<div class="work-show-box">
+							<div class="article-content-wraper">
+								<p><img :src=imga alt=""></p>
+								<p>
+									<strong>【团队简介】</strong>
+								</p>
+								<div>{{content}}</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="details-right-wrap">
+			<div class="normal-userinfo-box">
+				<div class="author-card follow-box">
+					<div class="card-media designer-card">
+						<div class="avatar-container-80 center">
+							<img src="../images/33.jpg" alt="">
+						</div>
+						<br>
+						<div class="presonal-info">团队名称</div>
+						<div class="position-info">
+							<span>{{name}}</span>
+						</div>
+						<div class="btn-area">
+							<input type="button" name="" value="报名" class="btn-default-main btn-current attention notfollow" id="join" @click="join">
+							<input type="button" name="" value="留言" class="btn-default-secondary btn-current private-letter" id="make">
+						</div>
+					</div>
+				</div>
+				<div class="infomation-work">
+					<div class="baoming">报名情况</div>
+					<div class="renyuan">
+						<ul v-for="item in list">
+							<li><span><img :src=item.imga alt=""></span><span class="mingcheng">{{item.u_neckname}}</span></li>
+							
+
+						</ul>
+						<h6 v-show="list.length==0">暂无数据</h6>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<footer>
+		<p>出自鼎团队</p>
+		<p>Terms of Services | Privacy Policy | Refund Policy</p>
+	</footer>
+
+
+	<script type="text/javascript" src="../js/jquery-3.3.1.min.js"></script>
+	<script type="text/javascript" src="../bootstrap/js/bootstrap.min.js"></script>
+	<script type="text/javascript">
+		document.onreadystatechange=function(){
+			if (document.readyState=='complete') {
+				$('.loading').fadeOut();
+			}
+		}
+		
+		$("#make").click(function(){
+			window.open("make.html","_self");
+		})
+	</script>
+	<script src="../js/vue.js"></script>
+	<script src="../js/vue-resource.js"></script>
+	<script src="../js/content.js"></script>
+</body>
+</html>

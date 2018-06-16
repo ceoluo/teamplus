@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="shortcut icon" href="../images/bitbug_favicon.ico" />
+	<link rel="stylesheet" type="text/css" href="../bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="../css/activity.css">
+	<title>个人中心</title>
+</head>
+<body>
+	<!-- 等待窗口 -->
+	<div class="loading">
+		<div class="pic">
+			<i></i>
+			<i></i>
+			<i></i>
+			<i></i>
+		</div>
+	</div>
+	
+	<header>
+		<div class="logo">
+			<img src="../images/logo2.png" alt="">
+		</div>
+		<div class="search">
+			<form class="form-inline my-2 my-lg-0">
+				<a href="index.html">首页</a>
+				<input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+				<button class="btn btn-success my-2 my-sm-0" type="submit">Search</button>
+			</form>
+			<div class="fudong">{{username}}，你好</div>
+		</div>
+	</header>
+
+	<div class="main">
+		<div class="people-home-bg">
+			<div class="bg-image">
+				<!-- <img src="../images/30.jpg" alt="" class="peoplebg"> -->
+			</div>
+			<div class="data-wraper">
+		        <div class="data-wrap-box">
+		            <p class="data-list-box left">
+		                留言数
+		                <a href="#" title="人气" class="data-number">1</a>
+		            </p>
+		            <p class="data-list-box left">
+		                点赞数
+		                <a href="#" title="积分" class="data-number">0</a>
+		            </p>
+		            <p class="data-list-box right">
+		                关注
+		                <a href="#" title="关注" class="data-number">0</a>
+		            </p>
+		            <p class="data-list-box right">
+		                粉丝
+		                <a href="#" title="粉丝" class="data-number">0</a>
+		            </p>
+		        </div>
+    		</div>
+		</div>
+		<div class="home-information-wrap">
+			<div class="home-information-box">
+				<div class="information-headimg-box">
+					<img :src=headimga alt="" @click="headimg">
+
+				</div>
+				<form action="http://192.168.1.111:5000/upload_img" enctype='multipart/form-data' method='POST' v-show="head==true" class="modifyph">
+					<div class="touxiang">修改头像</div>
+          			<input type="file" name="file" class="martop">
+					<button type="submit" @click="head=false" class="btn btn-success center-block">上传</button>
+				</form>
+
+				<div class="information-content-wrap text-center">
+					<p class="people-nick-name">{{u_neckname}}</p>
+					<p class="user-background">{{u_add}}</p>
+				</div>
+			</div>
+		</div>
+		<div class="subnav-content-wrap">
+			<div class="top-hull">
+				<div class="subnav-contentbox">
+					<div class="tab-nav-container">
+						<ul class="subnav-content text-center">
+							<li>
+								<a href="javascript:void(0)" @click="flag=1">个人资料</a>
+							</li>
+							<li>
+								<a href="javascript:void(0)" id="huodong123">活动</a>
+								<ul class="soncont" id="soncont1">
+									<li><a href="javascript:void(0)" @click="seemyact(1)">我发起的活动</a></li>
+									<li><a href="javascript:void(0)" @click="seemyact(2)">我参与的活动</a></li>
+									<li><a href="javascript:void(0)" @click="flag=4">发起活动</a></li>
+								</ul>
+							</li>
+							<li>
+								<a href="javascript:void(0)" id="huodong456">团队</a>
+								<ul class="soncont" id="soncont2">
+									<li><a href="javascript:void(0)" @click="seemyteam(1)">我管理的团队</a></li>
+									<li><a href="javascript:void(0)" @click="seemyteam(2)">我参与的团队</a></li>
+									<li><a href="javascript:void(0)"@click="flag=8">创建团队</a></li>
+								</ul>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="contariner-wraper" >
+			<div class="center-section-wrap">
+				<div class="datum-item-box" v-show='flag==1'>
+					<div class="datum-title-box">
+						基本信息
+						<a href="javascript:void(0)" class="btn-default-main btn-small right" @click="flag=5">修改</a>
+					</div>
+					<div class="table-wrap">
+                        <table class="datum-table">
+                            <tbody>
+                            	<tr>
+                                	<th>真实姓名</th>
+                                    <td>{{username}}</td>
+                                </tr>
+                                <tr>
+                                    <th>性别</th>
+                                    <td>{{u_sex}}</td>
+                                </tr>
+                                <tr>
+                                    <th>入学时间</th>
+                                    <td>{{adm_time|date}}</td>
+                                </tr>   
+                                <tr>
+                                    <th>年龄</th>
+                                    <td>{{u_age|age}}</td>
+                                </tr>
+                                 <tr>
+                                    <th>个性签名</th>
+                                    <td>{{u_introduction}}</td>
+                                </tr>
+                                <tr>
+                                    <th>民族</th>
+                                    <td>{{u_mingzu}}</td>
+                                </tr>               
+                                <tr>
+                                    <th>现居</th>
+                                    <td>{{u_add}}</td>
+                                </tr>
+                                <tr>
+                                    <th>学院</th>
+                                    <td>{{u_school}}</td>
+                                </tr>
+                                <tr>
+                                    <th>专业</th>
+                                    <td>{{u_major}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+
+					<div></div>
+				</div>
+			</div>
+	
+				
+		<div class="contariner-wraper" >
+			<div class="center-section-wrap">
+				<div class="datum-item-box" v-show='flag==5'>
+					<div class="datum-title-box">
+						基本信息
+						<a href="javascript:void(0)" class="btn-default-main btn-small right">保存</a>
+					</div>
+					<div class="table-wrap">
+                        <table class="datum-table">
+                            <tbody>
+                            	<tr>
+                                	<th>用户名</th>
+                                    <td><input class="form-control" id="disabledInput1" type="text" placeholder="年少轻狂"></td>
+                                </tr>
+                                 <tr>
+                                    <th>个性签名</th>
+                                    <td><input class="form-control" id="disabledInput2" type="text" placeholder="个性签名"></td>
+                                </tr>
+                                <tr>
+                                    <th>性别</th>
+                                    <td><input class="form-control" id="disabledInput2" type="text" placeholder="男"></td>
+                                </tr>
+                                <tr>
+                                    <th>家乡</th>
+                                    <td><input class="form-control" id="disabledInput3" type="text" placeholder="四川/成都" ></td>
+                                </tr>
+                                   <tr>
+                                    <th>民族</th>
+                                    <td><input class="form-control" id="disabledInput3" type="text" placeholder="四川/成都" ></td>
+                                </tr>              
+                                <tr>
+                                    <th>现居</th>
+                                    <td><input class="form-control" id="disabledInput4" type="text" placeholder="四川/成都" ></td>
+                                </tr>
+                                <tr>
+                                    <th>学院</th>
+                                    <td><input class="form-control" id="disabledInput5" type="text" placeholder="计算机与软件工程学院" ></td>
+                                </tr>
+                                <tr>
+                                    <th>专业</th>
+                                    <td><input class="form-control" id="disabledInput6" type="text" placeholder="物联网工程" ></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+					<div></div>
+				</div>
+			</div>
+
+			<div class="center-section-wrap height1" v-show="flag==4">
+				<div class="col-md-12 col-sm-12 col-xs-12 clearfix">
+					<div class="chat-panel panel panel-default chat-boder chat-panel-head">
+						<div class="panel-heading">
+	                        <i class="glyphicon glyphicon-plus"></i>
+	                        发起活动
+	                    </div>
+
+
+	                    		<div class="form-group">
+									<label>活动名称</label>
+	                                    <input class="form-control" placeholder="为你的活动取一个漂亮的名字吧" v-model="a_title">
+	                    		</div>
+	                    		<div class="form-group">
+									<label>主办方</label>
+	                                  <select class="form-control" v-model="a_name" >
+	                                  	<option v-for="vlaue in arr">{{vlaue.name}}</option>
+	                                
+	                                  </select>
+	                    		</div>
+	                    		<div class="form-group">
+									<label>级别</label>
+	                                  <select class="form-control" v-model="level"  >
+	                                  	<option>校级</option>
+	                                  	<option>团队</option>
+	                                  	<option>个人</option>
+	                                  </select>
+	                    		</div>
+	                    		<div class="form-group">
+									<label>开始日期</label>
+	                                    <input type="date" class="form-control" v-model="a_startday">
+	                    		</div>
+	                    		<div class="form-group">
+									<label>截止日期</label>
+	                                    <input type="date" class="form-control"  v-model="a_endday">
+	                    		</div>
+	                    		<div class="form-group">
+	                    			<label>活动简介</label>
+	                    			<textarea class="form-control" rows="2" placeholder="请在这里输入你的活动简介" v-model="a_introduction"></textarea>
+	                    		</div>
+	                    		<div class="form-group">
+	                    			<label>活动内容</label>
+	                                <textarea class="form-control" rows="8" placeholder="请在这里输入你的活动内容" v-model="a_content"></textarea>
+	                    		</div>
+	                    		<div class="form-group">
+	                    			<label>相关文件</label>
+                                    <form action="http://192.168.1.111:5000/upload_activity_file" enctype='multipart/form-data' method='POST'>
+          							<input type="file"   name="file" >
+
+
+	                    		</div>
+	                    		<div class="form-group">
+	                    			<button  type="submit" class="btn btn-block" style="background-color: #07b168;" @click="creactivity">提交</button>
+	                    		</div>
+                        </form>
+	                    </div>
+					</div>
+				</div>
+			</div>
+			<div class="center-section-wrap height2" v-show="flag==3">
+				<div class="col-md-12 col-sm-12 col-xs-12">    
+	                <div class="chat-panel panel panel-default chat-boder chat-panel-head">
+	                    <div class="panel-heading">
+	                        <i class="glyphicon glyphicon-plus"></i>
+	                        我参与的活动
+	                        <div class="btn-group pull-right">
+	                            <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+	                            	<i class="glyphicon glyphicon-chevron-down"></i>
+	                            </button>
+	                            <ul class="dropdown-menu slidedown">
+	                                <li>
+	                                   	<a href="#">
+	                                        <i class="glyphicon glyphicon-calendar"></i>今天
+	                                    </a>
+	                                </li>
+	                                <li>
+	                                    <a href="#">
+	                                        <i class="glyphicon glyphicon-calendar"></i>一周内
+	                                    </a>
+	                                </li>
+	                                <li>
+	                                    <a href="#">
+	                                        <i class="glyphicon glyphicon-calendar"></i>一个月内
+	                                    </a>
+	                                </li>
+	                                <li>
+	                                    <a href="#">
+	                                        <i class="glyphicon glyphicon-asterisk"></i>所有
+	                                    </a>
+	                                </li>
+	                                    <li class="divider"></li>
+	                                <li>
+	                                    <a href="#">
+	                                        <i class="glyphicon glyphicon-remove-sign"></i>注销
+	                                    </a>
+	                                </li>
+	                            </ul>
+	                        </div>
+	                    </div>
+
+	                    <div class="panel-body">
+	                        <ul class="chat-box" >
+	                            <li class="left clearfix" v-for="item in myact">
+	                                <span class="chat-img pull-left">
+	                                    <img :src="item.imga" alt="User" class="img-circle">
+	                                </span>
+	                                <div class="chat-body">
+	                                    <strong>{{item.title}}</strong>
+	                                    <small class="pull-right text-muted">
+	                                        <i class="glyphicon glyphicon-dashboard">{{item.begintime|date}}~{{item.endtime|date}}</i>
+	                                    </small>    
+	                                    <p>
+	                                       {{item.content}}一月又一月晕晕晕晕晕晕晕晕晕晕晕晕晕晕晕晕晕晕晕晕晕晕晕晕晕晕晕晕晕晕晕晕晕晕晕晕晕晕晕晕
+
+
+	                                    </p>
+	                                </div>
+	                            </li>
+	                         <!--  <li v-show="myact.length==0"><span>暂无数据</span></li> -->
+	                       	</ul>
+	                    </div>
+	                </div>      
+	            </div>	
+			</div>
+		</div>
+	</div>
+	<div class="center-section-wrap height2" v-show="flag==6">
+				<div class="col-md-12 col-sm-12 col-xs-12">    
+	                <div class="chat-panel panel panel-default chat-boder chat-panel-head">
+	                    <div class="panel-heading">
+	                        <i class="glyphicon glyphicon-plus"></i>
+	                        我管理的团队
+	                        <div class="btn-group pull-right">
+	                            <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+	                            	<i class="glyphicon glyphicon-chevron-down"></i>
+	                            </button>
+	                            <ul class="dropdown-menu slidedown">
+	                                <li class="width2">
+	                                   	<a href="#">
+	                                        <i class="glyphicon glyphicon-calendar"></i>
+	                                    </a>
+	                                </li>
+	                                <li>
+	                                    <a href="#">
+	                                        <i class="glyphicon glyphicon-calendar"></i>一周内
+	                                    </a>
+	                                </li>
+	                                <li>
+	                                    <a href="#">
+	                                        <i class="glyphicon glyphicon-calendar"></i>一个月内
+	                                    </a>
+	                                </li>
+	                                <li>
+	                                    <a href="#">
+	                                        <i class="glyphicon glyphicon-asterisk"></i>所有
+	                                    </a>
+	                                </li>
+	                                    <li class="divider"></li>
+	                                <li>
+	                                    <a href="#">
+	                                        <i class="glyphicon glyphicon-remove-sign"></i>注销
+	                                    </a>
+	                                </li>
+	                            </ul>
+	                        </div>
+	                    </div>
+
+	                    <div class="panel-body">
+	                        <ul class="chat-box" >
+	                            <li class="left clearfix" v-for="item in myteam">
+	                                <span class="chat-img pull-left">
+	                                    <img :src="item.imga" alt="User" class="img-circle">
+	                                </span>
+	                                <div class="chat-body">
+	                                    <strong>{{item.name}}</strong>
+	                                       
+	                                    <p>
+	                                       {{item.content}}
+	                                    </p>
+	                                </div>
+	                            </li>
+	                         <!--  <li v-show="myact.length==0"><span>暂无数据</span></li> -->
+	                       	</ul>
+	                    </div>
+	                </div>      
+	            </div>	
+			</div>
+		</div>
+	</div>
+	<div class="center-section-wrap height2" v-show="flag==7">
+				<div class="col-md-12 col-sm-12 col-xs-12">    
+	                <div class="chat-panel panel panel-default chat-boder chat-panel-head">
+	                    <div class="panel-heading">
+	                        <i class="glyphicon glyphicon-plus"></i>
+	                        我管理的团队
+	                        <div class="btn-group pull-right">
+	                            <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+	                            	<i class="glyphicon glyphicon-chevron-down"></i>
+	                            </button>
+	                            <ul class="dropdown-menu slidedown">
+	                                <li>
+	                                   	<a href="#">
+	                                        <i class="glyphicon glyphicon-calendar"></i>今天
+	                                    </a>
+	                                </li>
+	                                <li>
+	                                    <a href="#">
+	                                        <i class="glyphicon glyphicon-calendar"></i>一周内
+	                                    </a>
+	                                </li>
+	                                <li>
+	                                    <a href="#">
+	                                        <i class="glyphicon glyphicon-calendar"></i>一个月内
+	                                    </a>
+	                                </li>
+	                                <li>
+	                                    <a href="#">
+	                                        <i class="glyphicon glyphicon-asterisk"></i>所有
+	                                    </a>
+	                                </li>
+	                                    <li class="divider"></li>
+	                                <li>
+	                                    <a href="#">
+	                                        <i class="glyphicon glyphicon-remove-sign"></i>注销
+	                                    </a>
+	                                </li>
+	                            </ul>
+	                        </div>
+	                    </div>
+
+	                    <div class="panel-body">
+	                        <ul class="chat-box" >
+	                            <li class="left clearfix width2" v-for="item in myteam">
+	                                <span class="chat-img pull-left">
+	                                    <img :src="item.imga" alt="User" class="img-circle">
+	                                </span>
+	                                <div class="chat-body">
+	                                    <strong>{{item.title}}</strong>
+	                                      
+	                                    <p>
+	                                       {{item.content}}
+	                                    </p>
+	                                </div>
+	                            </li>
+	                         <!--  <li v-show="myact.length==0"><span>暂无数据</span></li> -->
+	                       	</ul>
+	                    </div>
+	                </div>      
+	            </div>	
+			</div>
+		<div class="center-section-wrap height1" v-show="flag==8">
+				<div class="col-md-12 col-sm-12 col-xs-12 clearfix">
+					<div class="chat-panel panel panel-default chat-boder chat-panel-head">
+						<div class="panel-heading">
+	                        <i class="glyphicon glyphicon-plus"></i>
+	                        发起一个团队
+	                    </div>
+	                    <div class="panel-body">
+	                    	<form role="form">
+	                    		<div class="form-group">
+									<label>团队名称</label>
+	                                    <input class="form-control" placeholder="为你的团队取一个漂亮的名字吧" v-model="t_title">
+	                    		</div>
+	                    		
+	                    		<div class="form-group">
+									<label>人数限制</label>
+	                                  <input type="text" class="form-control" v-model="t_limt_members">
+	                    		</div>
+	                    		<div class="form-group">
+									<label>级别</label>
+	                                  <select class="form-control" v-model="t_level"  >
+	                                  	<option>校级</option>
+	                                  	<option>院级</option>
+	                                  	<option>自组团队</option>
+	                                  </select>
+	                    		</div>
+	                    		
+	                    		<div class="form-group">
+	                    			<label>团队简介</label>
+	                    			<textarea class="form-control" rows="2" placeholder="请在这里输入你的活动简介" v-model="t_introduction"></textarea>
+	                    		</div>
+	                    		
+	                    		<div class="form-group">
+	                    			<label>相关文件</label>
+	                    			<input type="file" v-model="file">
+	                    		</div>
+	                    		<div class="form-group">
+	                    			<button type="button" class="btn btn-block" style="background-color: #07b168;" @click="createam">提交</button>
+	                    		</div>
+	                    	</form>
+	                    </div>
+					</div>
+				</div>
+			</div>
+<div class="center-section-wrap height2" v-show="flag==2">
+				<div class="col-md-12 col-sm-12 col-xs-12">    
+	                <div class="chat-panel panel panel-default chat-boder chat-panel-head">
+	                    <div class="panel-heading">
+	                        <i class="glyphicon glyphicon-plus"></i>
+	                        我发起的活动
+	                        <div class="btn-group pull-right">
+	                            <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+	                            	<i class="glyphicon glyphicon-chevron-down"></i>
+	                            </button>
+	                            <ul class="dropdown-menu slidedown">
+	                                <li>
+	                                   	<a href="#">
+	                                        <i class="glyphicon glyphicon-calendar"></i>今天
+	                                    </a>
+	                                </li>
+	                                <li>
+	                                    <a href="#">
+	                                        <i class="glyphicon glyphicon-calendar"></i>一周内
+	                                    </a>
+	                                </li>
+	                                <li>
+	                                    <a href="#">
+	                                        <i class="glyphicon glyphicon-calendar"></i>一个月内
+	                                    </a>
+	                                </li>
+	                                <li>
+	                                    <a href="#">
+	                                        <i class="glyphicon glyphicon-asterisk"></i>所有
+	                                    </a>
+	                                </li>
+	                                    <li class="divider"></li>
+	                                <li>
+	                                    <a href="#">
+	                                        <i class="glyphicon glyphicon-remove-sign"></i>注销
+	                                    </a>
+	                                </li>
+	                            </ul>
+	                        </div>
+	                    </div>
+
+	                    <div class="panel-body">
+	                        <ul class="chat-box">
+	                            <li class="left clearfix" v-for="item in myact">
+	                                <span class="chat-img pull-left">
+	                                    <img src="../images/35.jpg" alt="User" class="img-circle">
+	                                </span>
+	                                <div class="chat-body">
+	                                    <strong>{{item.title}}</strong>
+	                                    <small class="pull-right text-muted">
+	                                        <i class="glyphicon glyphicon-dashboard">{{item.begintime|date}}~{{item.endtime|date}}</i>
+	                                    </small>    
+	                                    <p>
+	                                       {{item.content}}一月又一月晕晕晕晕晕晕晕晕晕晕晕晕晕晕晕晕晕晕晕晕晕晕晕晕晕晕晕晕晕晕晕晕晕晕晕晕晕晕晕晕
+
+
+	                                    </p>
+	                                </div>
+	                            </li>
+	                          
+	                       	</ul>
+	                    </div>
+	                </div>      
+	            </div>	
+			</div>
+	
+    <div style="clear: both;"></div>
+	<footer class="fixed-bottom">
+		<p>出自鼎团队</p>
+		<p>Terms of Services | Privacy Policy | Refund Policy</p>
+	</footer>
+
+	<script type="text/javascript" src="../js/jquery-3.3.1.min.js"></script>
+	<script type="text/javascript" src="../bootstrap/js/bootstrap.min.js"></script>
+	<script src="../js/vue.js"></script>
+	<script src="../js/vue-resource.js"></script>
+	<script src="../js/activity.js"></script>
+	<script type="text/javascript">
+		document.onreadystatechange=function(){
+			if (document.readyState=='complete') {
+				$('.loading').fadeOut();
+			}
+		}
+		$("#huodong123").mouseover(function(){
+			$("#soncont1").css("display","block");
+		})
+		$("#soncont1").mouseover(function(){
+			$("#soncont1").css("display","block");
+		})
+		$("#soncont1").mouseout(function(){
+			$("#soncont1").css("display","none");
+		})
+		$("#huodong123").mouseout(function(){
+			$("#soncont1").css("display","none");
+		})
+
+		$("#huodong456").mouseover(function(){
+			$("#soncont2").css("display","block");
+		})
+		$("#soncont2").mouseover(function(){
+			$("#soncont2").css("display","block");
+		})
+		$("#soncont2").mouseout(function(){
+			$("#soncont2").css("display","none");
+		})
+		$("#huodong456").mouseout(function(){
+			$("#soncont2").css("display","none");
+		})
+
+	</script>
+</body>
+</html>
