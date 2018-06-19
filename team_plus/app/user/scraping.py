@@ -141,8 +141,8 @@ if __name__ == '__main__':
     # user_id = input("学号：")
     # password = input("密码：")
     login_data = {
-        'u_id': '3120160911123',
-        'u_password': 'lx201091',
+        'u_id': '31201609xxxxx',
+        'u_password': 'xxxxxxx',
         'check_code': ''
     }
     scraping = Scraping(url)
